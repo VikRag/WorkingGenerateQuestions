@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions Website</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            /* Align items to the top */
+            height: 100vh;
+            margin: 0;
+            padding-top: 20px;
+            /* Add padding to move content slightly down */
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            /* Reduce margin to move it closer to the buttons */
+        }
+
+        button {
+            width: 150px;
+            height: 50px;
+            margin: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #question {
+            margin-bottom: 20px;
+        }
+
+        #OptionA,
+        #OptionB,
+        #OptionC,
+        #OptionD {
+            margin-bottom: 15px;
+        }
+
+        #Next:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Generated Question of Selected Subject & Grade </h2>
+    <div>
+        <h4 id="question">Question:</h4>
+    </div>
+    <div id="OptionA">
+        <button id="textA" onclick="handleClick('A')">Option A:</button>
+    </div>
+    <div id="OptionB">
+        <button id="textB" onclick="handleClick('B')">Option B:</button>
+    </div>
+    <div id="OptionC">
+        <button id="textC" onclick="handleClick('C')">Option C:</button>
+    </div>
+    <div id="OptionD">
+        <button id="textD" onclick="handleClick('D')">Option D:</button>
+    </div>
+    <button id="Next" onclick="updateScreen()" disabled>Next Question</button>
+    <h4 id="result"></h4>
+    <div>
+        <p>Correct Answers: <span id="correctAnswers">0</span></p>
+        <p>Incorrect Answers: <span id="incorrectAnswers">0</span></p>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let correctAnswersCount = 0;
+        let incorrectAnswersCount = 0;
+
+        let questions = [
+            {
+                grade: 1,
+                subject: "Math",
+                question: "What is 1 + 1?",
+                answers: ["1", "2", "3", "4"],
+                correctAnswer: "2"
+            },
+            {
+                grade: 1,
+                subject: "Math",
+                question: "What is 2 + 2?",
+                answers: ["1", "2", "3", "4"],
+                correctAnswer: "4"
+            },
+            {
+                grade: 1,
+                subject: "Math",
+                question: "What is 3 + 1?",
+                answers: ["2", "3", "4", "5"],
+                correctAnswer: "4"
+            },
+            {
+                grade: 1,
+                subject: "Math",
+                question: "What is 5 - 2?",
+                answers: ["1", "2", "3", "4"],
+                correctAnswer: "3"
+            },
+            {
+                grade: 1,
+                subject: "Math",
+                question: "What is 6 - 3?",
+                answers: ["2", "3", "4", "5"],
+                correctAnswer: "3"
+            },
+            {
+                grade: 1,
+                subject: "Science",
+                question: "What is the color of the sky?",
+                answers: ["Red", "Blue", "Green", "Yellow"],
+                correctAnswer: "Blue"
+            },
+            {
+                grade: 1,
+                subject: "Science",
+                question: "What do plants need to grow?",
+                answers: ["Water", "Food", "Air", "Sleep"],
+                correctAnswer: "Water"
+            },
+            {
+                grade: 1,
+                subject: "Science",
+                question: "What do animals breathe?",
+                answers: ["Water", "Food", "Air", "Soil"],
+                correctAnswer: "Air"
+            },
+            {
+                grade: 1,
+                subject: "Science",
+                question: "Which animal is known as the king of the jungle?",
+                answers: ["Elephant", "Lion", "Tiger", "Bear"],
+                correctAnswer: "Lion"
+            },
+            {
+                grade: 1,
+                subject: "Science",
+                question: "What is the shape of the Earth?",
+                answers: ["Square", "Round", "Triangular", "Oval"],
+                correctAnswer: "Round"
+            },
+            {
+                grade: 1,
+                subject: "English",
+                question: "What is the opposite of hot?",
+                answers: ["Cold", "Warm", "Cool", "Boiling"],
+                correctAnswer: "Cold"
+            },
+            {
+                grade: 1,
+                subject: "English",
+                question: "Which word is a fruit?",
+                answers: ["Apple", "Table", "Dog", "Chair"],
+                correctAnswer: "Apple"
+            },
+            {
+                grade: 1,
+                subject: "English",
+                question: "How many days are in a week?",
+                answers: ["5", "6", "7", "8"],
+                correctAnswer: "7"
+            },
+            {
+                grade: 1,
+                subject: "English",
+                question: "Which is the correct spelling?",
+                answers: ["Cat", "Cta", "Act", "Tac"],
+                correctAnswer: "Cat"
+            },
+            {
+                grade: 1,
+                subject: "Science",
+                question: "What is the color of the sun?",
+                answers: ["Red", "Yellow", "Green", "Blue"],
+                correctAnswer: "Yellow"
+            },
+            {
+                grade: 1,
+                subject: "History",
+                question: "Who was the first president of the United States?",
+                answers: ["Abraham Lincoln", "George Washington", "Thomas Jefferson", "Theodore Roosevelt"],
+                correctAnswer: "George Washington"
+            },
+            {
+                grade: 1,
+                subject: "History",
+                question: "Who discovered America?",
+                answers: ["Christopher Columbus", "Marco Polo", "Leonardo Da Vinci", "Thomas Edison"],
+                correctAnswer: "Christopher Columbus"
+            },
+            {
+                grade: 1,
+                subject: "History",
+                question: "What year did the Titanic sink?",
+                answers: ["1912", "1900", "1899", "1920"],
+                correctAnswer: "1912"
+            },
+            {
+                grade: 1,
+                subject: "History",
+                question: "Who was the first woman to fly solo across the Atlantic?",
+                answers: ["Amelia Earhart", "Susan B. Anthony", "Harriet Tubman", "Rosa Parks"],
+                correctAnswer: "Amelia Earhart"
+            },
+            {
+                grade: 1,
+                subject: "History",
+                question: "Who invented the lightbulb?",
+                answers: ["Nikola Tesla", "Thomas Edison", "Alexander Graham Bell", "Benjamin Franklin"],
+                correctAnswer: "Thomas Edison"
+            }
+        ];
+
+        function loadQuestions() {
+            const subject = document.getElementById('subject').value;
+            const grade = document.getElementById('grade').value;
+
+            questions = questions.filter(q => q.subject === subject && q.grade == grade);
+            currentQuestionIndex = 0;
+            correctAnswersCount = 0;
+            incorrectAnswersCount = 0;
+            document.getElementById("correctAnswers").innerText = correctAnswersCount;
+            document.getElementById("incorrectAnswers").innerText = incorrectAnswersCount;
+            updateScreen();
+        }
+
+        window.addEventListener("load", () => {
+            updateScreen();
+            loadQuestions();
+        })
+        function updateScreen() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= questions.length) {
+                currentQuestionIndex = 0;
+            }
+            document.getElementById("Next").disabled = true;
+            document.getElementById("textA").disabled = false;
+            document.getElementById("textB").disabled = false;
+            document.getElementById("textC").disabled = false;
+            document.getElementById("textD").disabled = false;
+
+            let textA = document.getElementById("textA");
+            textA.innerHTML = questions[currentQuestionIndex].answers[0];
+            let textB = document.getElementById("textB");
+            textB.innerHTML = questions[currentQuestionIndex].answers[1];
+            let textC = document.getElementById("textC");
+            textC.innerHTML = questions[currentQuestionIndex].answers[2];
+            let textD = document.getElementById("textD");
+            textD.innerHTML = questions[currentQuestionIndex].answers[3];
+            let questionElement = document.getElementById("question");
+            questionElement.innerHTML = questions[currentQuestionIndex].question;
+            document.getElementById("result").innerHTML = "";
+
+        }
+
+        function handleClick(option) {
+            let selectedAnswer = questions[currentQuestionIndex].answers[option.charCodeAt(0) - 65];
+            let correctAnswer = questions[currentQuestionIndex].correctAnswer;
+            let resultText = document.getElementById("result");
+
+            if (selectedAnswer === correctAnswer) {
+                resultText.innerHTML = "Correct!";
+                correctAnswersCount++;
+                document.getElementById("correctAnswers").innerText = correctAnswersCount;
+            } else {
+                resultText.innerHTML = "Incorrect!";
+                incorrectAnswersCount++;
+                document.getElementById("incorrectAnswers").innerText = incorrectAnswersCount;
+            }
+            document.getElementById("Next").disabled = false;
+            document.getElementById("textA").disabled = true;
+            document.getElementById("textB").disabled = true;
+            document.getElementById("textC").disabled = true;
+            document.getElementById("textD").disabled = true;
+
+        }
+    </script>
+
+</body>
+
+</html>
