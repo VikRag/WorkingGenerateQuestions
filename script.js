@@ -178,7 +178,7 @@ let questions = [
     { grade: 7, subject: "History", question: "Who was the U.S. president during the Civil War?", answers: ["George Washington", "Abraham Lincoln", "Theodore Roosevelt", "Andrew Jackson"], correctAnswer: "Abraham Lincoln" },
     { grade: 7, subject: "History", question: "What was the name of the ship that carried the Pilgrims to America?", answers: ["Santa Maria", "Titanic", "Mayflower", "Endeavour"], correctAnswer: "Mayflower" }, 
     
-    // Grade 8
+    // Grade
     { grade: 8, subject: "Math", question: "Solve for x: 2x + 5 = 15", answers: ["3", "5", "10", "15"], correctAnswer: "5" },
     { grade: 8, subject: "Math", question: "What is the volume of a cube with sides of length 4 cm?", answers: ["64 cm³", "16 cm³", "32 cm³", "8 cm³"], correctAnswer: "64 cm³" },
     { grade: 8, subject: "Math", question: "What is the Pythagorean Theorem?", answers: ["a² + b² = c²", "a + b = c", "a² - b² = c²", "a × b = c"], correctAnswer: "a² + b² = c²" },
@@ -205,6 +205,8 @@ let questions = [
 ];
 
 let selectedQuestions = [];
+let correctCount = 0;
+let incorrectCount = 0;
 
 function generateQuestions() {
     let subject = document.getElementById("subject").value;
@@ -213,8 +215,9 @@ function generateQuestions() {
     incorrectCount = 0;
     document.getElementById("correctAnswers").innerText = "0";
     document.getElementById("incorrectAnswers").innerText = "0";
-    selectedQuestions = [];
+    document.getElementById("result").innerText = "";
 
+    selectedQuestions = [];
     for (let i = 0; i < questions.length; i++) {
         if (questions[i].subject === subject && questions[i].grade === grade) {
             selectedQuestions.push(questions[i]);
@@ -224,9 +227,10 @@ function generateQuestions() {
         alert("No questions available for the selected subject and grade.");
     } else {
         currentQuestionIndex = 0;
-        displayQuestion(); 
+        displayQuestion();
     }
 }
+
 
 function displayQuestion() {
     if (selectedQuestions.length > 0) {
@@ -251,6 +255,9 @@ function handleClick(option) {
     let correctAnswer = currentQuestion.correctAnswer;
     let resultText = document.getElementById("result");
 
+    let buttonId = `text${option}`;
+    let button = document.getElementById(buttonId);
+
     document.getElementById("textA").disabled = true;
     document.getElementById("textB").disabled = true;
     document.getElementById("textC").disabled = true;
@@ -258,14 +265,19 @@ function handleClick(option) {
 
     if (selectedAnswer === correctAnswer) {
         resultText.innerHTML = "Correct!";
-        correctAnswersCount++;
-        document.getElementById("correctAnswers").innerText = correctAnswersCount; 
+        correctCount++;
+        document.getElementById("correctAnswers").innerText = correctCount;
+        button.style.backgroundColor = "green"; 
     } else {
         resultText.innerHTML = "Incorrect!";
-        incorrectAnswersCount++;
-        document.getElementById("incorrectAnswers").innerText = incorrectAnswersCount;
-    }
+        incorrectCount++;
+        document.getElementById("incorrectAnswers").innerText = incorrectCount;
+        button.style.backgroundColor = "red"; 
 
+        let correctButtonIndex = currentQuestion.answers.indexOf(correctAnswer);
+        let correctButtonId = `text${String.fromCharCode(65 + correctButtonIndex)}`;
+        document.getElementById(correctButtonId).style.backgroundColor = "green";
+    }
     document.getElementById("Next").disabled = false;
 }
 
@@ -282,7 +294,10 @@ function updateScreen() {
     document.getElementById("textD").disabled = false;
     document.getElementById("result").innerHTML = "";
 
+    document.getElementById("textA").style.backgroundColor = "";
+    document.getElementById("textB").style.backgroundColor = "";
+    document.getElementById("textC").style.backgroundColor = "";
+    document.getElementById("textD").style.backgroundColor = "";
+
     displayQuestion();
 }
-
-
