@@ -178,7 +178,7 @@ let questions = [
     { grade: 7, subject: "History", question: "Who was the U.S. president during the Civil War?", answers: ["George Washington", "Abraham Lincoln", "Theodore Roosevelt", "Andrew Jackson"], correctAnswer: "Abraham Lincoln" },
     { grade: 7, subject: "History", question: "What was the name of the ship that carried the Pilgrims to America?", answers: ["Santa Maria", "Titanic", "Mayflower", "Endeavour"], correctAnswer: "Mayflower" }, 
     
-    // Grade
+    // Grade 8
     { grade: 8, subject: "Math", question: "Solve for x: 2x + 5 = 15", answers: ["3", "5", "10", "15"], correctAnswer: "5" },
     { grade: 8, subject: "Math", question: "What is the volume of a cube with sides of length 4 cm?", answers: ["64 cm³", "16 cm³", "32 cm³", "8 cm³"], correctAnswer: "64 cm³" },
     { grade: 8, subject: "Math", question: "What is the Pythagorean Theorem?", answers: ["a² + b² = c²", "a + b = c", "a² - b² = c²", "a × b = c"], correctAnswer: "a² + b² = c²" },
