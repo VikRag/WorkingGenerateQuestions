@@ -100,7 +100,6 @@ button:disabled {
     margin-top: 15px;
 }
 
-/* Score Section */
 p {
     font-size: 16px;
     margin: 5px 0;
@@ -111,7 +110,6 @@ span {
     color: #007bff;
 }
 
-/* Responsive Design */
 @media (max-width: 600px) {
     .container {
         width: 100%;
