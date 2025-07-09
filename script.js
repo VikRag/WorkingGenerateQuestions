@@ -407,10 +407,7 @@ let questions = [
     { grade: 1, subject: "History", question: "Who was the president of the Confederacy during the Civil War?", answers: ["Ulysses S. Grant", "Robert E. Lee", "Abraham Lincoln", "Jefferson Davis"], correctAnswer: "Jefferson Davis" },
     { grade: 1, subject: "History", question: "What year did women gain the right to vote in the U.S.?", answers: ["1776", "1865", "1920", "1960"], correctAnswer: "1920" }
 
-
-
-
-  { grade: 2, subject: "Math", question: "What is 5 + 3?", answers: ["6", "7", "8", "9"], correctAnswer: "8" },
+    { grade: 2, subject: "Math", question: "What is 5 + 3?", answers: ["6", "7", "8", "9"], correctAnswer: "8" },
     { grade: 2, subject: "Math", question: "What is 9 - 4?", answers: ["5", "6", "3", "7"], correctAnswer: "5" },
     { grade: 2, subject: "Math", question: "What is 10 + 2?", answers: ["10", "12", "15", "14"], correctAnswer: "12" },
     { grade: 2, subject: "Math", question: "What is 7 - 3?", answers: ["3", "4", "5", "6"], correctAnswer: "4" },
