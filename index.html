@@ -1,63 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Academy</title>
+<link rel="stylesheet" href="LogSign.css">
+
+<style>
+.hero {
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+}
+
+.hero img {
+  width: 200px;
+  max-width: 80%;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+.hero h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.2em;
+  opacity: 0.9;
+}
+
+.home-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.home-buttons button {
+  padding: 12px 25px;
+  font-size: 1.1em;
+  border-radius: 8px;
+}
+</style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>Elementary School Level Practice Questions</h1>
-        <h2>Select Subject and Grade Level</h2>
-        <label for="subject">Subject:</label>
-        <select id="subject">
-            <option value="Math">Math</option>
-            <option value="Science">Science</option>
-            <option value="History">History</option>
-            <option value="English">English</option>
-        </select>
 
-        <label for="grade">Grade Level:</label>
-        <select id="grade">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
+<div class="hero">
+  <!-- Replace the src with your image path -->
+  <img src="Screenshot 2025-11-29 114131.png" alt="Learning Academy">
+  <h1>Welcome to Learning Academy</h1>
+  <p>Your personal portal to learning, growth, and success.</p>
+</div>
 
-        <button id="generate" onclick="generateQuestions()">Generate Questions</button>
+<div class="home-buttons">
+  <button onclick="window.location.href='login.html'">Login</button>
+  <button onclick="window.location.href='signup.html'">Sign Up</button>
+  <button onclick="window.location.href='quiz.html'">Take a Quiz</button>
+</div>
 
-        <div>
-            <h4 id="question">Question:</h4>
-        </div>
-        <div id="OptionA">
-            <button id="textA" onclick="handleClick('A')">Option A:</button>
-        </div>
-        <div id="OptionB">
-            <button id="textB" onclick="handleClick('B')">Option B:</button>
-        </div>
-        <div id="OptionC">
-            <button id="textC" onclick="handleClick('C')">Option C:</button>
-        </div>
-        <div id="OptionD">
-            <button id="textD" onclick="handleClick('D')">Option D:</button>
-        </div>
-        <button id="Next" onclick="updateScreen()" disabled>
-            Next Question
-            
-        </button>
-        <h4 id="result"></h4>
-        <div>
-            <p>Correct Answers: <span id="correctAnswers">0</span></p>
-            <p>Incorrect Answers: <span id="incorrectAnswers">0</span></p>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
 </body>
-
 </html>

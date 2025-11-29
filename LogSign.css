@@ -1,4 +1,3 @@
-/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -9,9 +8,16 @@ body {
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #6c63ff, #3f3fff);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+}
+
+h1 {
+  color: #fff;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .container {
@@ -20,12 +26,6 @@ body {
   border-radius: 10px;
   width: 320px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-h1 {
-  color: #fff;
-  margin-bottom: 20px;
   text-align: center;
 }
 

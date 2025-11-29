@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Elementary School Level Practice Questions</h1>
+        <h2>Select Subject and Grade Level</h2>
+        <label for="subject">Subject:</label>
+        <select id="subject">
+            <option value="Math">Math</option>
+            <option value="Science">Science</option>
+            <option value="History">History</option>
+            <option value="English">English</option>
+        </select>
+
+        <label for="grade">Grade Level:</label>
+        <select id="grade">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <button id="generate" onclick="generateQuestions()">Generate Questions</button>
+
+        <div>
+            <h4 id="question">Question:</h4>
+        </div>
+        <div id="OptionA">
+            <button id="textA" onclick="handleClick('A')">Option A:</button>
+        </div>
+        <div id="OptionB">
+            <button id="textB" onclick="handleClick('B')">Option B:</button>
+        </div>
+        <div id="OptionC">
+            <button id="textC" onclick="handleClick('C')">Option C:</button>
+        </div>
+        <div id="OptionD">
+            <button id="textD" onclick="handleClick('D')">Option D:</button>
+        </div>
+        <button id="Next" onclick="updateScreen()" disabled>
+            Next Question
+            
+        </button>
+        <h4 id="result"></h4>
+        <div>
+            <p>Correct Answers: <span id="correctAnswers">0</span></p>
+            <p>Incorrect Answers: <span id="incorrectAnswers">0</span></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
