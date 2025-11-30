@@ -11,32 +11,32 @@ let currentQuestionIndex = 0;
 // Mapping: "Subject-Grade" → actual JSON filename
 const questionFiles = {
     // English
-    "English-1": "English_1_Questions.json",
-    "English-2": "English_2_Questions.json",
-    "English-3": "English_3_Questions.json",
-    "English-4": "English_4_Questions.json",
-    "English-5": "English_5_Questions.json",
+    "English-1": "english_1_Questions.json",
+    "English-2": "english_2_Questions.json",
+    "English-3": "english_3_Questions.json",
+    "English-4": "english_4_Questions.json",
+    "English-5": "english_5_Questions.json",
 
     // Math
-    "Math-1": "Math_1_Questions.json",
-    "Math-2": "Math_2_Questions.json",
-    "Math-3": "Math_3_Questions.json",
-    "Math-4": "Math_4_Questions.json",
-    "Math-5": "Math_5_Questions.json",
+    "Math-1": "math_1_Questions.json",
+    "Math-2": "math_2_Questions.json",
+    "Math-3": "math_3_Questions.json",
+    "Math-4": "math_4_Questions.json",
+    "Math-5": "math_5_Questions.json",
 
     // Science
-    "Science-1": "Science_1_Questions.json",
-    "Science-2": "Science_2_Questions.json",
-    "Science-3": "Science_3_Questions.json",
-    "Science-4": "Science_4_Questions.json",
-    "Science-5": "Science_5_Questions.json",
+    "Science-1": "science_1_Questions.json",
+    "Science-2": "science_2_Questions.json",
+    "Science-3": "science_3_Questions.json",
+    "Science-4": "science_4_Questions.json",
+    "Science-5": "science_5_Questions.json",
 
     // History
-    "History-1": "History_1_Questions.json",
-    "History-2": "History_2_Questions.json",
-    "History-3": "History_3_Questions.json",
-    "History-4": "History_4_Questions.json",
-    "History-5": "History_5_Questions.json"
+    "History-1": "history_1_Questions.json",
+    "History-2": "history_2_Questions.json",
+    "History-3": "history_3_Questions.json",
+    "History-4": "history_4_Questions.json",
+    "History-5": "history_5_Questions.json"
 };
 
 function generateQuestions() {
