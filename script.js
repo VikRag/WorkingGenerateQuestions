@@ -23,6 +23,10 @@ const questionFiles = {
     "Math-3": "math_3_Questions.json",
     "Math-4": "math_4_Questions.json",
     "Math-5": "math_5_Questions.json",
+    "Math-6": "math_6_Questions.json",
+    "Math-7": "math_7_Questions.json",
+    "Math-8": "math_8_Questions.json",
+
 
     // Science
     "Science-1": "science_1_Questions.json",
@@ -43,8 +47,8 @@ function generateQuestions() {
     const subject = document.getElementById("subject").value.trim();
     const grade = parseInt(document.getElementById("grade").value);
 
-    if (!subject || isNaN(grade) || grade < 1 || grade > 5) {
-        alert("Please select a valid subject and grade (1–5).");
+    if (!subject || isNaN(grade) || grade < 1 || grade > 8) {
+        alert("Please select a valid subject and grade (1–8).");
         return;
     }
 
