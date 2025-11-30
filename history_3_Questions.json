@@ -98,6 +98,5 @@
   { "grade": 3, "subject": "History", "question": "Who was president during the Louisiana Purchase?", "answers": ["Thomas Jefferson", "John Adams", "George Washington", "James Madison"], "correctAnswer": "Thomas Jefferson" },
   { "grade": 3, "subject": "History", "question": "Which river did Lewis and Clark follow?", "answers": ["Missouri River", "Mississippi River", "Ohio River", "Colorado River"], "correctAnswer": "Missouri River" },
   { "grade": 3, "subject": "History", "question": "Who was the first black woman in space?", "answers": ["Mae Jemison", "Katherine Johnson", "Sally Ride", "Dorothy Vaughan"], "correctAnswer": "Mae Jemison" },
-  { "grade": 3, "subject": "History", "question": "Which war was fought over the secession of Southern states?", "answers": ["American Civil War", "Revolutionary War", "Spanish-American War", "War of 1812"], "correctAnswer": "American Civil War" },
-  { "grade": 3, "subject": "History", "question": "What building houses the U.S. Congress?", "answers": ["U.S. Capitol", "White House", "Supreme Court", "Pentagon"], "correctAnswer": "U.S. Capitol" }
+  { "grade": 3, "subject": "History", "question": "Which war was fought over the secession of Southern states?", "answers": ["American Civil War", "Revolutionary War", "Spanish-American War", "War of 1812"], "correctAnswer": "American Civil War" }
 ]
