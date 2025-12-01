@@ -16,6 +16,9 @@ const questionFiles = {
     "English-3": "english_3_Questions.json",
     "English-4": "english_4_Questions.json",
     "English-5": "english_5_Questions.json",
+    "English-6": "english_6_Questions.json",
+    "English-7": "english_7_Questions.json",
+    "English-8": "english_8_Questions.json",
 
     // Math
     "Math-1": "math_1_Questions.json",
@@ -34,13 +37,19 @@ const questionFiles = {
     "Science-3": "science_3_Questions.json",
     "Science-4": "science_4_Questions.json",
     "Science-5": "science_5_Questions.json",
+    "Science-6": "science_6_Questions.json",
+    "Science-7": "science_7_Questions.json",
+    "Science-8": "science_8_Questions.json",
 
-    // History
-    "History-1": "history_1_Questions.json",
-    "History-2": "history_2_Questions.json",
-    "History-3": "history_3_Questions.json",
-    "History-4": "history_4_Questions.json",
-    "History-5": "history_5_Questions.json"
+    // Social
+    "Social-1": "social_1_Questions.json",
+    "Social-2": "social_2_Questions.json",
+    "Social-3": "social_3_Questions.json",
+    "Social-4": "social_4_Questions.json",
+    "Social-5": "social_5_Questions.json",
+    "Social-6": "social_6_Questions.json",
+    "Social-7": "social_7_Questions.json",
+    "Social-8": "social_8_Questions.json",
 };
 
 function generateQuestions() {
