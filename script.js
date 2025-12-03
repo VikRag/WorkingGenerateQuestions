@@ -30,7 +30,6 @@ const questionFiles = {
     "Math-7": "math_7_Questions.json",
     "Math-8": "math_8_Questions.json",
 
-
     // Science
     "Science-1": "science_1_Questions.json",
     "Science-2": "science_2_Questions.json",
