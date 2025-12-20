@@ -1,6 +1,5 @@
 // ========================================
-// QUIZ APP – FULLY WORKING JAVASCRIPT CODE
-// For files named: English_1_Questions.json, Math_3_Questions.json, etc.
+// QUIZ APP – FULLY WORKING JAVASCRIPT CODE (WITH SHUFFLE)
 // ========================================
 
 let selectedQuestions = [];
@@ -51,6 +50,17 @@ const questionFiles = {
     "Social-8": "social_8_Questions.json",
 };
 
+// ========================
+// HELPER: Shuffle Array
+// ========================
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// Generate Questions and Inserts into the HTML PAGE
 function generateQuestions() {
     const subject = document.getElementById("subject").value.trim();
     const grade = parseInt(document.getElementById("grade").value);
@@ -66,6 +76,7 @@ function generateQuestions() {
     incorrectCount = 0;
     currentQuestionIndex = 0;
 
+    // Reset UI
     document.getElementById("correctAnswers").innerText = "0";
     document.getElementById("incorrectAnswers").innerText = "0";
     document.getElementById("result").innerHTML = "";
@@ -75,6 +86,7 @@ function generateQuestions() {
     const key = `${subject}-${grade}`;
     const filename = questionFiles[key];
 
+    // check if filename exists
     if (!filename) {
         document.getElementById("question").innerText = "";
         alert(`No questions available for ${subject} Grade ${grade} yet.`);
@@ -93,7 +105,12 @@ function generateQuestions() {
             if (!Array.isArray(data) || data.length === 0) {
                 throw new Error("Question file is empty or invalid.");
             }
+
             selectedQuestions = data;
+
+            // Shuffle questions for randomness
+            shuffleArray(selectedQuestions);
+
             displayQuestion();
         })
         .catch(err => {
@@ -103,6 +120,7 @@ function generateQuestions() {
         });
 }
 
+// Displays Question from JSON File
 function displayQuestion() {
     if (currentQuestionIndex >= selectedQuestions.length) {
         document.getElementById("question").innerHTML = `
@@ -115,6 +133,7 @@ function displayQuestion() {
 
     const q = selectedQuestions[currentQuestionIndex];
 
+    // Generate Questions and Inserts into the HTML PAGE
     document.getElementById("question").innerText = q.question;
     document.getElementById("textA").innerText = q.answers[0];
     document.getElementById("textB").innerText = q.answers[1];
@@ -129,7 +148,7 @@ function displayQuestion() {
         const btn = document.getElementById(`text${letter}`);
         btn.disabled = false;
         btn.style.backgroundColor = "";
-        btn.style.color = ""; // reset text color if needed
+        btn.style.color = "";
     });
 }
 
