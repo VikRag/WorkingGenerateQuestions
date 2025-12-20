@@ -120,3 +120,8 @@ span {
         font-size: 14px;
     }
 }
+#OptionA button.correct, #OptionB button.correct, #OptionC button.correct, #OptionD button.correct {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
