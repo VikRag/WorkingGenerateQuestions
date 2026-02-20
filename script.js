@@ -152,6 +152,7 @@ function displayQuestion() {
     });
 }
 
+// Changes button color based on answer correctness
 function handleClick(option) {
     const q = selectedQuestions[currentQuestionIndex];
     const selectedAnswer = q.answers[option.charCodeAt(0) - 65];
