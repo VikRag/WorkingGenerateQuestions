@@ -4,61 +4,188 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Learning Academy</title>
-<link rel="stylesheet" href="LogSign.css">
-
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-.hero {
-  text-align: center;
-  color: white;
-  margin-bottom: 40px;
-}
+  :root {
+    --primary: #4f6ef7;
+    --primary-light: #eef1fe;
+    --text: #1a1d2e;
+    --text-muted: #7b7f96;
+    --border: #e4e6f0;
+    --surface: #fff;
+  }
 
-.hero img {
-  width: 200px;
-  max-width: 80%;
-  margin-bottom: 20px;
-  border-radius: 15px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-.hero h1 {
-  font-size: 2.5em;
-  margin-bottom: 10px;
-}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f5f6fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
 
-.hero p {
-  font-size: 1.2em;
-  opacity: 0.9;
-}
+  /* Subtle grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
 
-.home-buttons {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    padding: 52px 48px;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.5s ease both;
+  }
 
-.home-buttons button {
-  padding: 12px 25px;
-  font-size: 1.1em;
-  border-radius: 8px;
-}
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .logo-mark {
+    width: 72px; height: 72px;
+    background: var(--primary);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 24px;
+    box-shadow: 0 6px 20px rgba(79,110,247,0.3);
+  }
+
+  h1 {
+    font-size: 2em;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  h1 span { color: var(--primary); }
+
+  .subtitle {
+    font-size: 1em;
+    color: var(--text-muted);
+    margin-bottom: 36px;
+    line-height: 1.5;
+  }
+
+  .subject-pills {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+
+  .pill {
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 0.82em;
+    font-weight: 600;
+    border: 1.5px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .pill.math    { background: #eef1fe; border-color: #eef1fe; color: #4f6ef7; }
+  .pill.science { background: #dcfce7; border-color: #dcfce7; color: #16a34a; }
+  .pill.english { background: #fef3c7; border-color: #fef3c7; color: #d97706; }
+  .pill.social  { background: #f3e8ff; border-color: #f3e8ff; color: #9333ea; }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    padding: 14px;
+    border-radius: 11px;
+    font-family: inherit;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    text-decoration: none;
+    display: block;
+  }
+
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-primary:hover { background: #3d5ce5; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(79,110,247,0.35); }
+
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--border);
+    color: var(--text);
+  }
+  .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 4px 0;
+    color: var(--text-muted);
+    font-size: 0.8em;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .footer-text {
+    margin-top: 28px;
+    font-size: 0.8em;
+    color: var(--text-muted);
+  }
+
+  .footer-text strong { color: var(--text); }
+
+  @media (max-width: 480px) {
+    .card { padding: 36px 24px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <!-- Replace the src with your image path -->
-  <img src="Screenshot 2025-11-29 114131.png" alt="Learning Academy">
-  <h1>Welcome to Learning Academy</h1>
-  <p>Your personal portal to learning, growth, and success.</p>
-</div>
+<div class="card">
+  <div class="logo-mark">🎓</div>
+  <h1>Learning <span>Academy</span></h1>
+  <p class="subtitle">Quiz yourself on Math, Science, English, and Social Studies — Grades 1–8.</p>
 
-<div class="home-buttons">
-  <button onclick="window.location.href='login.html'">Login</button>
-  <button onclick="window.location.href='signup.html'">Sign Up</button>
-  <button onclick="window.location.href='quiz.html'">Take a Quiz</button>
+  <div class="subject-pills">
+    <span class="pill math">➕ Math</span>
+    <span class="pill science">🔬 Science</span>
+    <span class="pill english">📖 English</span>
+    <span class="pill social">🌍 Social Studies</span>
+  </div>
+
+  <div class="actions">
+    <a href="login.html" class="btn btn-primary">Login to Your Account</a>
+    <div class="divider">or</div>
+    <a href="signup.html" class="btn btn-outline">Create a Free Account</a>
+    <a href="quiz.html" class="btn btn-outline" style="font-weight:500; color:var(--text-muted)">Continue as Guest →</a>
+  </div>
+
+  <p class="footer-text">Join <strong>students</strong> already learning with us ✨</p>
 </div>
 
 </body>

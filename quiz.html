@@ -1,66 +1,649 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz – Learning Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --surface: #ffffff;
+    --surface2: #f0f1f7;
+    --border: #e4e6f0;
+    --text: #1a1d2e;
+    --text-muted: #7b7f96;
+    --primary: #4f6ef7;
+    --primary-light: #eef1fe;
+    --green: #22c55e;
+    --green-light: #dcfce7;
+    --red: #ef4444;
+    --red-light: #fee2e2;
+    --radius: 14px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px 20px;
+  }
+
+  /* ── TOP NAV ── */
+  .topnav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 640px;
+    margin-bottom: 32px;
+  }
+
+  .back-btn {
+    display: flex; align-items: center; gap: 6px;
+    text-decoration: none;
+    font-size: 0.875em;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 7px 12px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    transition: all 0.15s;
+  }
+  .back-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+  .logo-chip {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.9em; font-weight: 700;
+    color: var(--primary);
+  }
+
+  /* ── SETUP CARD ── */
+  .setup-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 640px;
+    overflow: hidden;
+  }
+
+  .setup-header {
+    padding: 28px 30px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .setup-header h1 { font-size: 1.3em; font-weight: 700; margin-bottom: 4px; }
+  .setup-header p  { font-size: 0.875em; color: var(--text-muted); }
+
+  .setup-body { padding: 24px 30px; }
+
+  .fields-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .field select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 0.925em;
+    font-weight: 500;
+    color: var(--text);
+    background: var(--surface);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237b7f96' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .field select:focus { outline: none; border-color: var(--primary); }
+
+  .btn-generate {
+    width: 100%;
+    padding: 13px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-generate:hover { background: #3d5ce5; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(79,110,247,0.35); }
+
+  /* ── QUIZ CARD ── */
+  .quiz-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 640px;
+    margin-top: 16px;
+    overflow: hidden;
+    display: none;
+  }
+
+  .quiz-card.visible { display: block; }
+
+  /* Progress bar */
+  .quiz-progress-wrap {
+    height: 5px;
+    background: var(--surface2);
+  }
+  .quiz-progress-fill {
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.4s cubic-bezier(.4,0,.2,1);
+  }
+
+  .quiz-meta-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .quiz-label {
+    font-size: 0.78em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 99px;
+    background: var(--primary-light);
+    color: var(--primary);
+  }
+
+  .quiz-counter {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85em;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .score-pills {
+    display: flex; gap: 8px;
+  }
+
+  .score-pill {
+    display: flex; align-items: center; gap: 5px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 99px;
+  }
+
+  .score-pill.correct { background: var(--green-light); color: var(--green); }
+  .score-pill.incorrect { background: var(--red-light); color: var(--red); }
+
+  /* Question area */
+  .question-area { padding: 30px 28px 24px; }
+
+  #question {
+    font-size: 1.15em;
+    font-weight: 600;
+    line-height: 1.55;
+    color: var(--text);
+    min-height: 60px;
+  }
+
+  /* Options */
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 28px;
+  }
+
+  .option-btn {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--surface2);
+    border: 2px solid transparent;
+    border-radius: 11px;
+    font-family: inherit;
+    font-size: 0.95em;
+    font-weight: 500;
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex; align-items: center; gap: 13px;
+  }
+
+  .option-btn:not(:disabled):hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary);
+  }
+
+  .option-letter {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    background: white;
+    border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8em;
+    font-weight: 700;
+    flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+    transition: all 0.15s;
+  }
+
+  .option-btn:not(:disabled):hover .option-letter {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+
+  .option-btn.correct {
+    background: var(--green-light);
+    border-color: var(--green);
+    color: #166534;
+  }
+  .option-btn.correct .option-letter {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+  }
+
+  .option-btn.wrong {
+    background: var(--red-light);
+    border-color: var(--red);
+    color: #991b1b;
+  }
+  .option-btn.wrong .option-letter {
+    background: var(--red);
+    border-color: var(--red);
+    color: white;
+  }
+
+  .option-btn:disabled { cursor: not-allowed; }
+
+  /* Result + Next */
+  .quiz-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 28px 24px;
+    min-height: 70px;
+  }
+
+  #result {
+    font-size: 1em;
+    font-weight: 700;
+    display: flex; align-items: center; gap: 7px;
+  }
+
+  #result.correct { color: var(--green); }
+  #result.incorrect { color: var(--red); }
+
+  .btn-next {
+    padding: 11px 24px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 0.9em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex; align-items: center; gap: 6px;
+    margin-left: auto;
+  }
+  .btn-next:hover:not(:disabled) { background: #3d5ce5; }
+  .btn-next:disabled { background: var(--border); color: var(--text-muted); cursor: not-allowed; }
+
+  /* ── COMPLETE CARD ── */
+  .complete-card {
+    text-align: center;
+    padding: 48px 30px;
+  }
+  .complete-emoji { font-size: 56px; margin-bottom: 16px; }
+  .complete-card h2 { font-size: 1.6em; font-weight: 700; margin-bottom: 8px; }
+  .complete-card p  { color: var(--text-muted); margin-bottom: 28px; }
+
+  .final-score {
+    font-size: 3em;
+    font-weight: 700;
+    font-family: 'DM Mono', monospace;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+
+  .score-breakdown {
+    display: flex; gap: 16px; justify-content: center; margin-bottom: 30px;
+  }
+
+  .score-breakdown span {
+    font-size: 0.9em;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 8px;
+  }
+
+  .complete-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-outline {
+    padding: 11px 22px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+  @keyframes pop {
+    0%   { transform: scale(0.9); opacity: 0; }
+    70%  { transform: scale(1.04); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .quiz-card.visible { animation: pop 0.3s ease both; }
+
+  @media (max-width: 520px) {
+    .fields-row { grid-template-columns: 1fr; }
+    body { padding: 20px 14px; }
+    .setup-body, .question-area, .options-grid, .quiz-bottom { padding-left: 18px; padding-right: 18px; }
+  }
+</style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>1st-8th Grade Subject Quiz</h1>
-        <h2>Select Subject and Grade Level</h2>
-        <label for="subject">Subject:</label>
+
+<!-- Top nav -->
+<div class="topnav">
+  <a href="dashboard.html" class="back-btn">← Dashboard</a>
+  <div class="logo-chip">🎓 Learning Academy</div>
+</div>
+
+<!-- Setup Card -->
+<div class="setup-card">
+  <div class="setup-header">
+    <h1>✏️ Start a Quiz</h1>
+    <p>Pick a subject and grade level, then test your knowledge!</p>
+  </div>
+  <div class="setup-body">
+    <div class="fields-row">
+      <div class="field">
+        <label for="subject">Subject</label>
         <select id="subject">
-            <option value="Math">Math</option>
-            <option value="Science">Science</option>
-            <option value="Social">Social</option>
-            <option value="English">English</option>
+          <option value="Math">Math</option>
+          <option value="Science">Science</option>
+          <option value="Social">Social Studies</option>
+          <option value="English">English</option>
         </select>
-
-        <label for="grade">Grade Level:</label>
+      </div>
+      <div class="field">
+        <label for="grade">Grade Level</label>
         <select id="grade">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
+          <option value="1">Grade 1</option>
+          <option value="2">Grade 2</option>
+          <option value="3">Grade 3</option>
+          <option value="4">Grade 4</option>
+          <option value="5">Grade 5</option>
+          <option value="6">Grade 6</option>
+          <option value="7">Grade 7</option>
+          <option value="8">Grade 8</option>
         </select>
-
-        <button id="generate" onclick="generateQuestions()">Generate Questions</button>
-
-        <div>
-            <h4 id="question">Question:</h4>
-        </div>
-        <div id="OptionA">
-            <button id="textA" onclick="handleClick('A')">Option A:</button>
-        </div>
-        <div id="OptionB">
-            <button id="textB" onclick="handleClick('B')">Option B:</button>
-        </div>
-        <div id="OptionC">
-            <button id="textC" onclick="handleClick('C')">Option C:</button>
-        </div>
-        <div id="OptionD">
-            <button id="textD" onclick="handleClick('D')">Option D:</button>
-        </div>
-        <button id="Next" onclick="updateScreen()" disabled>
-            Next Question
-            
-        </button>
-        <h4 id="result"></h4>
-        <div>
-            <p>Correct Answers: <span id="correctAnswers">0</span></p>
-            <p>Incorrect Answers: <span id="incorrectAnswers">0</span></p>
-        </div>
+      </div>
     </div>
+    <button class="btn-generate" onclick="generateQuestions()">
+      🚀 Generate Questions
+    </button>
+  </div>
+</div>
 
-    <script src="script.js"></script>
+<!-- Quiz Card -->
+<div class="quiz-card" id="quizCard">
+
+  <!-- Progress bar -->
+  <div class="quiz-progress-wrap">
+    <div class="quiz-progress-fill" id="progressFill" style="width:0%"></div>
+  </div>
+
+  <!-- Meta bar -->
+  <div class="quiz-meta-bar">
+    <span class="quiz-label" id="quizLabel">Math · Grade 5</span>
+    <span class="quiz-counter" id="quizCounter">1 / 10</span>
+    <div class="score-pills">
+      <span class="score-pill correct">✓ <span id="correctAnswers">0</span></span>
+      <span class="score-pill incorrect">✗ <span id="incorrectAnswers">0</span></span>
+    </div>
+  </div>
+
+  <!-- Question -->
+  <div class="question-area">
+    <div id="question">Loading question...</div>
+  </div>
+
+  <!-- Options -->
+  <div class="options-grid">
+    <button class="option-btn" id="textA" onclick="handleClick('A')">
+      <span class="option-letter">A</span>
+      <span id="textA-label">Option A</span>
+    </button>
+    <button class="option-btn" id="textB" onclick="handleClick('B')">
+      <span class="option-letter">B</span>
+      <span id="textB-label">Option B</span>
+    </button>
+    <button class="option-btn" id="textC" onclick="handleClick('C')">
+      <span class="option-letter">C</span>
+      <span id="textC-label">Option C</span>
+    </button>
+    <button class="option-btn" id="textD" onclick="handleClick('D')">
+      <span class="option-letter">D</span>
+      <span id="textD-label">Option D</span>
+    </button>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="quiz-bottom">
+    <div id="result"></div>
+    <button class="btn-next" id="Next" onclick="nextQuestion()" disabled>
+      Next →
+    </button>
+  </div>
+
+</div>
+
+<script>
+let selectedQuestions = [];
+let correctCount = 0;
+let incorrectCount = 0;
+let currentQuestionIndex = 0;
+
+const questionFiles = {
+  "English-1":"english_1_Questions.json","English-2":"english_2_Questions.json","English-3":"english_3_Questions.json","English-4":"english_4_Questions.json","English-5":"english_5_Questions.json","English-6":"english_6_Questions.json","English-7":"english_7_Questions.json","English-8":"english_8_Questions.json",
+  "Math-1":"math_1_Questions.json","Math-2":"math_2_Questions.json","Math-3":"math_3_Questions.json","Math-4":"math_4_Questions.json","Math-5":"math_5_Questions.json","Math-6":"math_6_Questions.json","Math-7":"math_7_Questions.json","Math-8":"math_8_Questions.json",
+  "Science-1":"science_1_Questions.json","Science-2":"science_2_Questions.json","Science-3":"science_3_Questions.json","Science-4":"science_4_Questions.json","Science-5":"science_5_Questions.json","Science-6":"science_6_Questions.json","Science-7":"science_7_Questions.json","Science-8":"science_8_Questions.json",
+  "Social-1":"social_1_Questions.json","Social-2":"social_2_Questions.json","Social-3":"social_3_Questions.json","Social-4":"social_4_Questions.json","Social-5":"social_5_Questions.json","Social-6":"social_6_Questions.json","Social-7":"social_7_Questions.json","Social-8":"social_8_Questions.json",
+};
+
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+function updateProgress() {
+  const pct = selectedQuestions.length ? (currentQuestionIndex / selectedQuestions.length) * 100 : 0;
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("quizCounter").textContent = `${currentQuestionIndex + 1} / ${selectedQuestions.length}`;
+}
+
+function generateQuestions() {
+  const subject = document.getElementById("subject").value.trim();
+  const grade   = parseInt(document.getElementById("grade").value);
+
+  selectedQuestions = [];
+  correctCount = 0;
+  incorrectCount = 0;
+  currentQuestionIndex = 0;
+
+  document.getElementById("correctAnswers").innerText = "0";
+  document.getElementById("incorrectAnswers").innerText = "0";
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("result").className = "";
+  document.getElementById("Next").disabled = true;
+
+  const key = `${subject}-${grade}`;
+  const filename = questionFiles[key];
+
+  document.getElementById("quizLabel").textContent = `${subject} · Grade ${grade}`;
+
+  if (!filename) {
+    alert(`No questions available for ${subject} Grade ${grade} yet.`);
+    return;
+  }
+
+  document.getElementById("question").innerText = "Loading...";
+  document.getElementById("quizCard").classList.add("visible");
+
+  fetch(filename)
+    .then(r => { if (!r.ok) throw new Error("Not found"); return r.json(); })
+    .then(data => {
+      if (!Array.isArray(data) || data.length === 0) throw new Error("Empty file");
+      selectedQuestions = data;
+      shuffleArray(selectedQuestions);
+      updateProgress();
+      displayQuestion();
+    })
+    .catch(err => {
+      document.getElementById("question").innerText = "Could not load questions.";
+      console.error(err);
+    });
+}
+
+function displayQuestion() {
+  if (currentQuestionIndex >= selectedQuestions.length) {
+    showComplete();
+    return;
+  }
+
+  const q = selectedQuestions[currentQuestionIndex];
+  document.getElementById("question").innerText = q.question;
+
+  ["A","B","C","D"].forEach((l, i) => {
+    const btn = document.getElementById(`text${l}`);
+    document.getElementById(`text${l}-label`).innerText = q.answers[i];
+    btn.disabled = false;
+    btn.className = "option-btn";
+  });
+
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("result").className = "";
+  document.getElementById("Next").disabled = true;
+  updateProgress();
+}
+
+function handleClick(option) {
+  const q = selectedQuestions[currentQuestionIndex];
+  const selected = q.answers[option.charCodeAt(0) - 65];
+  const correct  = q.correctAnswer;
+
+  ["A","B","C","D"].forEach(l => {
+    document.getElementById(`text${l}`).disabled = true;
+  });
+
+  const resultEl = document.getElementById("result");
+
+  if (selected === correct) {
+    resultEl.innerHTML = "✓ Correct!";
+    resultEl.className = "correct";
+    correctCount++;
+    document.getElementById("correctAnswers").innerText = correctCount;
+    document.getElementById(`text${option}`).classList.add("correct");
+  } else {
+    resultEl.innerHTML = "✗ Not quite!";
+    resultEl.className = "incorrect";
+    incorrectCount++;
+    document.getElementById("incorrectAnswers").innerText = incorrectCount;
+    document.getElementById(`text${option}`).classList.add("wrong");
+
+    const correctIdx = q.answers.indexOf(correct);
+    const correctLetter = String.fromCharCode(65 + correctIdx);
+    document.getElementById(`text${correctLetter}`).classList.add("correct");
+  }
+
+  document.getElementById("Next").disabled = false;
+}
+
+function nextQuestion() {
+  currentQuestionIndex++;
+  displayQuestion();
+}
+
+function showComplete() {
+  const total = selectedQuestions.length;
+  const pct   = Math.round((correctCount / total) * 100);
+  let emoji   = pct >= 90 ? "🏆" : pct >= 70 ? "🎉" : pct >= 50 ? "👍" : "💪";
+  let msg     = pct >= 90 ? "Outstanding work!" : pct >= 70 ? "Great job!" : pct >= 50 ? "Good effort!" : "Keep practicing!";
+
+  const quizCard = document.getElementById("quizCard");
+  quizCard.innerHTML = `
+    <div class="complete-card">
+      <div class="complete-emoji">${emoji}</div>
+      <h2>${msg}</h2>
+      <p>You've finished the quiz.</p>
+      <div class="final-score">${pct}%</div>
+      <div class="score-breakdown">
+        <span style="background:var(--green-light);color:var(--green)">✓ ${correctCount} Correct</span>
+        <span style="background:var(--red-light);color:var(--red)">✗ ${incorrectCount} Wrong</span>
+        <span style="background:var(--primary-light);color:var(--primary)">${total} Total</span>
+      </div>
+      <div class="complete-actions">
+        <button class="btn-next" onclick="retryQuiz()">🔄 Try Again</button>
+        <a href="dashboard.html" class="btn-outline">← Dashboard</a>
+      </div>
+    </div>
+  `;
+}
+
+function retryQuiz() {
+  location.reload();
+}
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter" && !document.getElementById("Next")?.disabled) nextQuestion();
+});
+</script>
 </body>
-
 </html>
