@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login – Learning Academy</title>
+
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
   :root {
     --primary: #4f6ef7;
-    --primary-light: #eef1fe;
     --text: #1a1d2e;
     --text-muted: #7b7f96;
     --border: #e4e6f0;
     --surface: #fff;
-    --red: #ef4444;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,182 +23,115 @@
     background: #f5f6fa;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
   }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 40px 40px;
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  .back-link {
-    position: fixed;
-    top: 24px; left: 24px;
-    display: flex; align-items: center; gap: 6px;
-    font-size: 0.875em; font-weight: 600;
-    color: var(--text-muted);
-    text-decoration: none;
-    padding: 7px 12px;
-    border-radius: 8px;
-    border: 1.5px solid var(--border);
-    background: var(--surface);
-    transition: all 0.15s;
-    z-index: 10;
-  }
-  .back-link:hover { border-color: var(--primary); color: var(--primary); }
 
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 20px;
     box-shadow: 0 8px 40px rgba(0,0,0,0.08);
-    padding: 44px 40px;
-    max-width: 420px;
+    padding: 40px;
+    max-width: 400px;
     width: 100%;
-    position: relative;
-    z-index: 1;
-    animation: fadeUp 0.4s ease both;
   }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  h1 { font-size: 1.5em; margin-bottom: 6px; }
+  .sub { color: var(--text-muted); margin-bottom: 20px; }
 
-  .logo-mark {
-    width: 52px; height: 52px;
-    background: var(--primary);
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 14px rgba(79,110,247,0.3);
-  }
+  .field { margin-bottom: 14px; }
 
-  h1 { font-size: 1.5em; font-weight: 800; color: var(--text); margin-bottom: 4px; letter-spacing: -0.01em; }
-  .sub { font-size: 0.88em; color: var(--text-muted); margin-bottom: 30px; }
-
-  .field { margin-bottom: 16px; }
-
-  .field label {
-    display: block;
-    font-size: 0.8em;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    margin-bottom: 6px;
-  }
-
-  .field input {
+  input {
     width: 100%;
-    padding: 12px 14px;
-    border: 1.5px solid var(--border);
+    padding: 12px;
     border-radius: 10px;
-    font-family: inherit;
-    font-size: 0.95em;
-    color: var(--text);
-    background: var(--surface);
-    transition: border-color 0.15s;
+    border: 1px solid var(--border);
   }
-  .field input:focus { outline: none; border-color: var(--primary); }
-  .field input::placeholder { color: #c0c3d6; }
 
-  .btn-login {
+  button {
     width: 100%;
-    padding: 13px;
+    padding: 12px;
     background: var(--primary);
     color: white;
     border: none;
     border-radius: 10px;
-    font-family: inherit;
-    font-size: 1em;
     font-weight: 700;
     cursor: pointer;
-    margin-top: 6px;
-    transition: all 0.15s;
   }
-  .btn-login:hover { background: #3d5ce5; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(79,110,247,0.35); }
 
   .footer-text {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.875em;
-    color: var(--text-muted);
-  }
-
-  .footer-text a { color: var(--primary); font-weight: 600; text-decoration: none; }
-  .footer-text a:hover { text-decoration: underline; }
-
-  .divider {
-    display: flex; align-items: center; gap: 12px;
-    margin: 20px 0;
-    color: var(--text-muted); font-size: 0.8em;
-  }
-  .divider::before, .divider::after { content:''; flex:1; height:1px; background:var(--border); }
-
-  .btn-guest {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background: transparent;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    font-family: inherit;
+    margin-top: 15px;
     font-size: 0.9em;
-    font-weight: 600;
-    color: var(--text-muted);
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    transition: all 0.15s;
   }
-  .btn-guest:hover { border-color: var(--primary); color: var(--primary); }
 
-  @media (max-width: 480px) {
-    .card { padding: 32px 22px; }
-    .back-link { top: 14px; left: 14px; }
+  .footer-text a {
+    color: var(--primary);
+    text-decoration: none;
   }
 </style>
 </head>
+
 <body>
 
-<a href="index.html" class="back-link">← Home</a>
-
 <div class="card">
-  <div class="logo-mark">🎓</div>
   <h1>Welcome back!</h1>
-  <p class="sub">Log in to track your progress and badges.</p>
+  <p class="sub">Log in to your account</p>
 
   <div class="field">
-    <label>Email</label>
-    <input type="email" placeholder="you@example.com">
+    <input id="email" type="email" placeholder="Email">
   </div>
+
   <div class="field">
-    <label>Password</label>
-    <input type="password" placeholder="••••••••">
+    <input id="password" type="password" placeholder="Password">
   </div>
 
-  <button class="btn-login" onclick="window.location.href='dashboard.html'">Log In →</button>
-
-  <div class="divider">or</div>
-
-  <a href="quiz.html" class="btn-guest">Continue as Guest</a>
+  <button onclick="login()">Log In →</button>
 
   <div class="footer-text">
-    Don't have an account? <a href="signup.html">Sign up free</a>
+    Don’t have an account? <a href="signup.html">Sign up</a>
   </div>
 </div>
+
+<!-- 🔥 FIREBASE LOGIN -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { 
+    getAuth, 
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCcIgbm_Qk3w60r6F-Yo-vgUOvp28KBDis",
+    authDomain: "learning-academy-1063f.firebaseapp.com",
+    projectId: "learning-academy-1063f",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // 🔐 LOGIN FUNCTION
+  window.login = async function () {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("Logged in!");
+      window.location.href = "dashboard.html";
+    } catch (e) {
+      alert("Error: " + e.message);
+    }
+  };
+
+  // 🔁 AUTO REDIRECT if already logged in
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      window.location.href = "dashboard.html";
+    }
+  });
+</script>
 
 </body>
 </html>
