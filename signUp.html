@@ -184,6 +184,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCcIgbm_Qk3w60r6F-Yo-vgUOvp28KBDis",
@@ -193,15 +194,30 @@
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app); // ✅ ADD THIS
 
   window.signup = async function () {
+    const fullName = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
+    // ✅ Split full name into first + last
+    const nameParts = fullName.split(" ");
+    const firstName = nameParts[0] || "";
+    const lastName = nameParts.slice(1).join(" ") || "";
+
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        firstName: firstName,
+        lastName: lastName,
+        email: email
+      });
+
       alert("Account created!");
       window.location.href = "dashboard.html";
+
     } catch (e) {
       alert(e.message);
     }
@@ -209,4 +225,4 @@
 </script>
 
 </body>
-</html>Yes 
+</html>
